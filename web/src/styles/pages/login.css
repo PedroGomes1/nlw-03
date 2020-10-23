@@ -1,0 +1,130 @@
+#page-container {
+  
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+}
+
+#page-container .background {
+  background: linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%);
+  width: 65%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+  font-size: 24px;
+  line-height: 34px;
+}
+
+#page-container .background img {
+  margin-bottom: 100px;
+}
+
+#page-container .login-area {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+  position: relative;
+}
+
+#page-container .login-area .back-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 40px;
+  height: 48px;
+  width: 48px;
+  background: #EBF2F5;
+  border-radius: 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-container .login-area h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #5C8599;
+}
+
+#page-container .login-area form {
+  width: 360px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#page-container .login-area form .input-block {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 16px;
+}
+
+#page-container .login-area form .input-block label {
+  display: flex;
+  color: #8FA7B3;
+  margin-bottom: 8px;
+  line-height: 24px;
+}
+
+#page-container .login-area form .input-block input {
+  width: 100%;
+  background: #F5F8FA;
+  border: 1px solid #D3E2E5;
+  border-radius: 20px;
+  outline: none;
+  color: #5C8599;
+
+  height: 64px;
+  padding: 0 16px;
+}
+
+#page-container .login-area form .options-form {
+  display: flex;
+  align-items: center;
+
+  margin-top: 24px;
+}
+
+#page-container .login-area form .options-form input[type="checkbox"] {
+  height: 24px;
+  width: 24px;
+
+}
+
+#page-container .login-area form .options-form label {
+  color: #8FA7B3;
+  font-size: 16px;
+  line-height: 22px;
+  margin-left: 16px;
+}
+
+#page-container .login-area form .options-form a {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8FA7B3;
+  text-decoration: none;
+  margin-left: auto;
+}
+
+#page-container .login-area form button {
+  width: 360px;
+  height: 64px;
+
+  background: #37C77F;
+  border-radius: 20px;
+  border: 0;
+
+  margin-top: 42px;
+
+  font-weight: bold;
+  color: #ffffff;
+}
