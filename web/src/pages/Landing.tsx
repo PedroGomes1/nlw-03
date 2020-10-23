@@ -8,17 +8,29 @@ const Landing: React.FC = () => {
   return (
     <div id="page-landing">
       <div className="content-wrapper">
-        <img src={logoImg} alt="logo"/>
 
+        <div className="header-content">
+
+          <div className="image-location">
+            <img src={logoImg} alt="logo"/>
+
+            <div className="location">
+              <strong>Aguaí</strong>
+              <span>São Paulo</span>
+            </div>
+          </div>
+          
+          <Link to="/login">
+            <button>Acesso restrito</button>
+          </Link>
+
+        </div>
+        
         <main>
           <h1>Leve felicidade para o mundo</h1>
           <p>Visite orfanatos e mude o dia de muitas crianças.</p>
         </main>
 
-        <div className="location">
-          <strong>Aguaí</strong>
-          <span>São Paulo</span>
-        </div>
 
         <Link to="/app" className="enter-app">
           <FiArrowRight size={26} color="rgba(0,0,0,0.6)"/>
