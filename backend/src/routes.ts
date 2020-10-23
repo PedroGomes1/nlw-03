@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import multer from 'multer';
 
+import ensureAuthenticate from './middleware/EnsureAuthenticate';
+
 import uploadConfig from './config/upload';
 import OrphanagesController from './controllers/OrphanagesController';
 import UsersController from './controllers/UsersController';
 import SessionsController from './controllers/SessionsController';
+import ForgotPasswordController from './controllers/ForgotPasswordController';
+import ResetPasswordController from './controllers/ResetPasswordController';
 
 const routes = Router();
 const upload = multer(uploadConfig);
@@ -15,5 +19,8 @@ routes.get('/orphanages', OrphanagesController.index)
 
 routes.post('/users', UsersController.store)
 routes.post('/session', SessionsController.store)
+
+routes.post('/forgot-password', ForgotPasswordController.store)
+routes.post('/reset-password', ResetPasswordController.store)
 
 export default routes;
