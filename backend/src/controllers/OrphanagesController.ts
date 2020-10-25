@@ -11,7 +11,10 @@ export default {
     const orphanagesRepository = getRepository(Orphanage);
 
     const orphanages = await orphanagesRepository.find({
-      relations: ['images']
+      relations: ['images'],
+      where: {
+        is_pending: false
+      }
     });
 
     return response.json(orphanageView.renderMany(orphanages));
@@ -52,6 +55,7 @@ export default {
       instructions, 
       opening_hours,
       open_on_weekends: open_on_weekends === 'true',
+      is_pending: true,
       images
     }
 
