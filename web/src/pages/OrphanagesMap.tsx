@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiPlus, FiArrowRight } from 'react-icons/fi';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import '../styles/pages/orphanages-map.css';
@@ -16,6 +16,9 @@ interface Orphanage {
 }
 
 const OrphanagesMap: React.FC = () => {
+
+  const history = useHistory();
+
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
   useEffect(() => {
@@ -29,7 +32,7 @@ const OrphanagesMap: React.FC = () => {
     <div id="page-map">
       <aside>
         <header>
-              <img src={mapMarkerImg} alt="Happy" />
+              <img src={mapMarkerImg} alt="Happy" onClick={() => history.push('/')}/>
 
               <h2>Escolha um orfanato no mapa</h2>
               <p>Muitas crianças estão esperando a sua visita :)</p>
