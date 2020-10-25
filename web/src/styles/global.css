@@ -11,3 +11,8 @@ body {
 body, input, button, textarea {
   font: 600 18px Nunito, sans-serif;
 }
+
+html, body, #root {
+  min-height: 100%;
+  height: 100%;
+}
