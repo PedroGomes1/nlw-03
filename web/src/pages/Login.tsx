@@ -1,15 +1,30 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useCallback, useState } from 'react';
 import '../styles/pages/login.css';
 import logo from '../images/logotipo-maior.svg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
+import { useAuth } from '../hooks/auth';
 
 
 export default function Login() {
 
+  const history = useHistory();
+  const { signIn } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemeber] = useState(false); 
+
+  const handleLogin = async (event: FormEvent): Promise<void> => {
+    event.preventDefault();
+
+    try {
+      await signIn({ email, password });
+      history.push('/dashboard');
+    } catch (error) {
+      alert('Erro ao fazer login')
+    }
+  }
 
   return (
     <div id="page-container">
@@ -29,7 +44,7 @@ export default function Login() {
 
         <h1>Fazer login</h1>
 
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="input-block">
             <label htmlFor="email">E-mail</label>
             <input
@@ -69,9 +84,7 @@ export default function Login() {
             Entrar  
           </button>        
         </form>
-
       </div>
-
     </div>
   )
 }
