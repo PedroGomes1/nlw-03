@@ -88,23 +88,25 @@ export default function CreateOrphanage() {
           <fieldset>
             <legend>Dados</legend>
 
-            <Map 
-              center={[-22.0515076, -46.9710888]} 
-              style={{ width: '100%', height: 280 }}
-              zoom={15}
-              onclick={handleMapClick}
-            >
-              <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+            <div className="wrapper-map">
+              <Map 
+                center={[-22.0515076, -46.9710888]} 
+                style={{ width: '100%', height: 243 }}
+                zoom={15}
+                onclick={handleMapClick}
+              >
+                <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
 
-              { position.latitude !== 0 && (
-                 <Marker
-                    interactive={false}
-                    icon={mapIcon}
-                    position={[position.latitude, position.longitude]}
-                 />
-              )}
-
-            </Map>
+                { position.latitude !== 0 && (
+                  <Marker
+                      interactive={false}
+                      icon={mapIcon}
+                      position={[position.latitude, position.longitude]}
+                  />
+                )}
+              </Map>
+              <p>Clique no mapa para adicionar a localização</p>
+            </div>
 
             <div className="input-block">
               <label htmlFor="name">Nome</label>
