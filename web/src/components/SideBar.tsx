@@ -6,11 +6,11 @@ import { useHistory } from "react-router-dom";
 import '../styles/components/sidebar.css'
 export default function SideBar() {
 
-  const { goBack } = useHistory();
+  const { goBack, push } = useHistory();
 
   return (
     <aside className="app-sidebar">
-      <img src={mapMarkerImg} alt="Happy" />
+      <img src={mapMarkerImg} alt="Happy" onClick={() => push('/dashboard')} />
 
       <footer>
         <button type="button" onClick={goBack}>
