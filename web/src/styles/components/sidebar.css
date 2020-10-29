@@ -8,6 +8,22 @@ aside.app-sidebar {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  animation: aside 3s;
+}
+
+@keyframes aside {
+  0% {
+    background: none;
+  }
+  
+  50% {
+    background: #15C3D6;
+  }
+
+  100% {
+    background: #15C3D6;
+  }
 }
 
 aside.app-sidebar img {

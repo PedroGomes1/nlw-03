@@ -16,20 +16,50 @@
   justify-content: space-between;
   
   padding: 32px 0px;
+
+  animation: aside 3s;
+}
+
+@keyframes aside {
+  0% {
+    background: none;
+  }
+  
+  50% {
+    background: #15C3D6;
+  }
+
+  100% {
+    background: #15C3D6;
+  }
 }
 
 #page-dashboard aside img {
   width: 48px;
   cursor: pointer;
+  
+  animation: icons 2s;
 }
 
 #page-dashboard aside .status-orphanage {
   display: flex;
   flex-direction: column;
+
+  animation: icons 2s;
 }
 
 #page-dashboard aside .status-orphanage img {
   margin-bottom: 16px;
+}
+
+@keyframes icons {
+  0% {
+    transform: translateX(-30px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
 }
 
 #page-dashboard main {

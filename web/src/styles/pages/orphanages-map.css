@@ -16,8 +16,36 @@
   justify-content: space-between;
 }
 
+#page-map header,
+#page-map footer {
+  animation: fade 2s;
+}
+
+@keyframes fade {
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
 #page-map aside header img {
   cursor: pointer;
+  animation: icon 1.5s alternate infinite;
+}
+
+@keyframes icon {
+  0% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 #page-map aside h2 {
