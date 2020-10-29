@@ -6,6 +6,7 @@
 
 #page-dashboard aside {
   width: 96px;
+  max-height: 820px;
   background: #15C3D6;
 
   display: flex;

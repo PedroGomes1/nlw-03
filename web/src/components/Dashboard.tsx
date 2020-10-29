@@ -2,8 +2,10 @@ import React from 'react';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import mapMarkerImg from '../images/map-marker.svg';
 import mapIcon from '../util/mapIcon';
-import orphanageRegistered from '../images/orphanage-registered.svg';
-import orphanagePending from '../images/orphanage-pending.svg';
+import iconOrphanageRegisteredActive from '../images/orphanage-registered.svg';
+import iconOrphanagePending from '../images/orphanage-pending.svg';
+import iconOrphanageRegistered from '../images/orphanage-registered2.svg';
+import iconOrphanagePendingActive from '../images/orphanage-pending2.svg';
 import iconViewPending from '../images/icon-view-pending.svg';
 import noPending from '../images/no-pending.svg';
 import '../styles/components/dashboard.css'
@@ -41,19 +43,31 @@ const Dashboard: React.FC<OrphanagesProps> = ({
     history.push('/');
   }
 
+  const handleOrphanageEdit = (orphanage: Orphanages) => {
+    history.push(`/orphanage-edit`, {
+      orphanage,
+    });
+  }
+
+  const handleDecidePending = (orphanage: Orphanages) => {
+    history.push(`/decide-pending-orphanages`, {
+      orphanage,
+    });
+  }
+  
   return (
     <div id="page-dashboard"> 
       <aside>
-        <img src={mapMarkerImg} alt="Happy" />
+        <img src={mapMarkerImg} alt="Happy" onClick={() => history.push('/dashboard')} />
 
         <div className="status-orphanage">
           <img
-            src={orphanageRegistered}
+            src={ pathname === '/dashboard/pending' ? iconOrphanageRegistered : iconOrphanageRegisteredActive}
             alt=""
             onClick={() => history.push('/dashboard')}
           />
           <img
-            src={orphanagePending}
+            src={pathname === '/dashboard/pending' ? iconOrphanagePendingActive : iconOrphanagePending}
             alt=""
             onClick={() => history.push('/dashboard/pending')}
           />
@@ -90,13 +104,13 @@ const Dashboard: React.FC<OrphanagesProps> = ({
                   <h1>{orphanage.name}</h1>
   
                   { pathname === '/dashboard/pending' ? (
-                    <div className="wrapper-actions">
+                    <div className="wrapper-actions" onClick={() => handleDecidePending(orphanage)}>
                       <img src={iconViewPending} alt="view-pending-icon"/>
                     </div>
                   ) : (
                     <div className="wrapper-actions">
-                      <img src={editInfo} alt="delete"/>
-                      <img src={deleteInfo} alt="edit"/>
+                      <img src={editInfo} alt="edit" onClick={() => handleOrphanageEdit(orphanage)}/>
+                      <img src={deleteInfo} alt="delete"/>
                     </div>
                   )}
                 </div>
