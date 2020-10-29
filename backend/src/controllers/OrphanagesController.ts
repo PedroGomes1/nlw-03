@@ -8,12 +8,14 @@ export default {
 
   async index(request: Request, response: Response) {
 
-    const orphanagesRepository = getRepository(Orphanage);
+    const { is_pending } = request.query;
 
+    const orphanagesRepository = getRepository(Orphanage);
+    
     const orphanages = await orphanagesRepository.find({
       relations: ['images'],
       where: {
-        is_pending: false
+        is_pending,
       }
     });
 
@@ -36,7 +38,15 @@ export default {
   },
   
   async create(request: Request, response: Response) {
-    const { name, latitude, longitude, about, instructions, opening_hours, open_on_weekends } = request.body;
+    const { 
+      name,
+      latitude,
+      longitude,
+      about,
+      instructions,
+      opening_hours,
+      open_on_weekends
+    } = request.body;
     
     const orphanagesRepository = getRepository(Orphanage);
 
@@ -81,5 +91,43 @@ export default {
     await orphanagesRepository.save(orphanage);
 
     return response.json(orphanage);
+  },
+
+  async update(request: Request, response: Response) {
+
+    const { idOrphanage } = request.params;
+
+    const orphanagesRepository = getRepository(Orphanage)
+
+    const orphanage = await orphanagesRepository.findOne(idOrphanage);
+
+    if(!orphanage) {
+      return response.status(400).json({ error: 'Orphanage not found' });
+    }
+
+    const orphanageUpdated = await orphanagesRepository.save({
+      ...orphanage,
+      ...request.body
+    });
+    
+
+    return response.json(orphanageUpdated);
+  },
+
+  async delete(request: Request, response: Response) {
+
+    const { idOrphanage } = request.params;
+
+    const orphanagesRepository = getRepository(Orphanage)
+
+    const orphanage = await orphanagesRepository.findOne(idOrphanage);
+
+    if(!orphanage) {
+      return response.status(400).json({ error: 'Orphanage not found' });
+    }
+
+    await orphanagesRepository.delete(orphanage);
+
+    return response.status(204).json();
   }
 }
