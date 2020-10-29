@@ -8,13 +8,19 @@ const OrphanagesPending: React.FC = () => {
   
   useEffect(() => {
     async function loadOrphanagesPending() {
-      const response = await api.get<OrphanagesProps[]>('orphanages-pending')
+      const response = await api.get<OrphanagesProps[]>('orphanages', {
+        params: {
+          is_pending: 1
+        }
+      })
 
       setOrphanages(response.data)
     }
     loadOrphanagesPending();
   }, [])
+  
 
+  console.log(orphanages);
   return (
     <Dashboard
       orphanages={orphanages}

@@ -9,7 +9,11 @@ const OrphanagesRegistered: React.FC = () => {
 
   useEffect(() => {
     async function loadOrphanagesRegistered() {
-      const response = await api.get<OrphanagesProps[]>('orphanages')
+      const response = await api.get<OrphanagesProps[]>('orphanages', {
+        params: {
+          is_pending: 0
+        }
+      })
 
       setOrphanages(response.data)
     }
