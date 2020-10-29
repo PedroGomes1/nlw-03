@@ -20,7 +20,6 @@ const OrphanagesPending: React.FC = () => {
   }, [])
   
 
-  console.log(orphanages);
   return (
     <Dashboard
       orphanages={orphanages}
