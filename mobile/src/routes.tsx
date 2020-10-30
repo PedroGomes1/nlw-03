@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from './pages/SplashScreen';
 import OrphanagesMap from './pages/OrphanagesMap';
 import OrphanagesDetails from './pages/OrphanagesDetails';
 import OrphanageData from './pages/CreateOrphanage/OrphanageData';
@@ -12,19 +14,46 @@ import Header from './components/Header';
 
 const { Navigator, Screen } = createStackNavigator();
 
+const Routes: React.FC = () => {
+  const [isFirstLaunched, setIsFirstLaunched] = useState('');
 
-export default function Routes() {
+  useEffect(() => {
+    AsyncStorage.getItem('firstLaunched').then(value => {
+      if (value === null) {
+        AsyncStorage.setItem('firstLaunched', 'true');
+      } else {
+        setIsFirstLaunched(value);
+      }
+    });
+    AsyncStorage.removeItem('firstLaunched');
+  }, []);
+
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="transparent" translucent barStyle="dark-content" />
+      <StatusBar
+        backgroundColor="transparent"
+        translucent
+        barStyle="dark-content"
+      />
       <Navigator
-        screenOptions = {{
+        screenOptions={{
           headerShown: false,
           cardStyle: {
-            backgroundColor: '#f2f3f5'
-          }
+            backgroundColor: '#f2f3f5',
+          },
         }}
       >
+        {!isFirstLaunched && (
+          <Screen
+            name="SplashScreen"
+            component={SplashScreen}
+            options={{
+              headerShown: true,
+              headerStyle: { elevation: 0, shadowColor: 'transparent' },
+              title: '',
+            }}
+          />
+        )}
         <Screen
           name="OrphanagesMap"
           component={OrphanagesMap}
@@ -38,7 +67,7 @@ export default function Routes() {
           component={OrphanagesDetails}
           options={{
             headerShown: true,
-            header: () => <Header showCancel={false} title="Orfanato" />
+            header: () => <Header showCancel={false} title="Orfanato" />,
           }}
         />
 
@@ -47,7 +76,7 @@ export default function Routes() {
           component={OrphanageData}
           options={{
             headerShown: true,
-            header: () => <Header title="Selecione no mapa" />
+            header: () => <Header title="Selecione no mapa" />,
           }}
         />
 
@@ -56,11 +85,12 @@ export default function Routes() {
           component={SelectMapPosition}
           options={{
             headerShown: true,
-            header: () => <Header title="Informe os dados" />
+            header: () => <Header title="Informe os dados" />,
           }}
         />
-
       </Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};
+
+export default Routes;
