@@ -7,25 +7,25 @@ import MapView, { Marker, MapEvent } from 'react-native-maps';
 
 import mapMarkerImg from '../../images/map-marker.png';
 
-export default function SelectMapPosition() {
+const SelectMapPosition: React.FC = () => {
   const navigation = useNavigation();
 
   const [position, setPosition] = useState({
     latitude: 0,
     longitude: 0,
-  })
+  });
 
-  function handleNextStep() {
+  function handleNextStep(): void {
     navigation.navigate('OrphanageData', { position });
   }
 
-  function handleSelectMapPosition(event: MapEvent) {
-    setPosition(event.nativeEvent.coordinate) //Salva a latitude e longitude
+  function handleSelectMapPosition(event: MapEvent): void {
+    setPosition(event.nativeEvent.coordinate); // Salva a latitude e longitude
   }
 
   return (
     <View style={styles.container}>
-      <MapView 
+      <MapView
         initialRegion={{
           latitude: -22.0515076,
           longitude: -46.9710888,
@@ -35,14 +35,15 @@ export default function SelectMapPosition() {
         onPress={handleSelectMapPosition}
         style={styles.mapStyle}
       >
-        
         {position.latitude !== 0 && (
           <Marker
             icon={mapMarkerImg}
-            coordinate={{ latitude: position.latitude, longitude: position.longitude }}
+            coordinate={{
+              latitude: position.latitude,
+              longitude: position.longitude,
+            }}
           />
         )}
-
       </MapView>
 
       {position.latitude !== 0 && (
@@ -51,13 +52,13 @@ export default function SelectMapPosition() {
         </RectButton>
       )}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative'
+    position: 'relative',
   },
 
   mapStyle: {
@@ -82,5 +83,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito_800ExtraBold',
     fontSize: 16,
     color: '#FFF',
-  }
-})
+  },
+});
+
+export default SelectMapPosition;

@@ -1,26 +1,33 @@
 import React, { useState } from 'react';
-import { ScrollView, View, StyleSheet, Switch, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import api from '../../services/api';
 
-
 interface RouteProps {
   position: {
     latitude: number;
     longitude: number;
-  }
+  };
 }
 
-export default function OrphanageData() {
-
-  const [name, setName] = useState('')
-  const [about, setAbout] = useState('')
-  const [instructions, setInstructions] = useState('')
-  const [opening_hours, setOpeningHours] = useState('')
-  const [open_on_weekends, setOpenOnWeekends] = useState(true)
+const OrphanageData: React.FC = () => {
+  const [name, setName] = useState('');
+  const [about, setAbout] = useState('');
+  const [instructions, setInstructions] = useState('');
+  const [opening_hours, setOpeningHours] = useState('');
+  const [open_on_weekends, setOpenOnWeekends] = useState(true);
   const [images, setImages] = useState<string[]>([]);
 
   const route = useRoute();
@@ -28,7 +35,7 @@ export default function OrphanageData() {
 
   const navigation = useNavigation();
 
-  async function handleCreateOrphanage () {
+  async function handleCreateOrphanage(): Promise<void> {
     const { latitude, longitude } = params.position;
 
     const data = new FormData();
@@ -46,19 +53,18 @@ export default function OrphanageData() {
         name: `image_${index}.jpg`,
         type: 'image/jpg',
         uri: image,
-      } as any)
-    })
+      } as any);
+    });
 
-    await api.post('orphanages', data)
+    await api.post('orphanages', data);
 
-    navigation.navigate('OrphanagesMap')
+    navigation.navigate('OrphanagesMap');
   }
 
-  async function handleSelectImages() {
+  async function handleSelectImages(): Promise<void> {
     const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
 
-    console.log(status);
-    if(status !== 'granted') {
+    if (status !== 'granted') {
       alert('Eita, precisamos de acesso às suas fotos...');
       return;
     }
@@ -66,10 +72,10 @@ export default function OrphanageData() {
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
-      mediaTypes: ImagePicker.MediaTypeOptions.Images, //Somente imagens e não vídeos 
-    })
+      mediaTypes: ImagePicker.MediaTypeOptions.Images, // Somente imagens e não vídeos
+    });
 
-    if(result.cancelled) {
+    if (result.cancelled) {
       return;
     }
 
@@ -79,14 +85,18 @@ export default function OrphanageData() {
   }
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 24 }}>
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ padding: 24 }}
+    >
       <Text style={styles.title}>Dados</Text>
 
       <Text style={styles.label}>Nome</Text>
       <TextInput
         style={styles.input}
         value={name}
-        onChangeText={setName} //text => setName(text) .. short sintax
+        onChangeText={setName} // text => setName(text) .. short sintax
       />
 
       <Text style={styles.label}>Sobre</Text>
@@ -101,9 +111,9 @@ export default function OrphanageData() {
 
       <View style={styles.uploadedImagesContainer}>
         {images.map(image => (
-          <Image 
+          <Image
             key={image}
-            source={{uri: image}}
+            source={{ uri: image }}
             style={styles.uploadedImage}
           />
         ))}
@@ -132,8 +142,8 @@ export default function OrphanageData() {
 
       <View style={styles.switchContainer}>
         <Text style={styles.label}>Atende final de semana?</Text>
-        <Switch 
-          thumbColor="#fff" 
+        <Switch
+          thumbColor="#fff"
           trackColor={{ false: '#ccc', true: '#39CC83' }}
           value={open_on_weekends}
           onValueChange={setOpenOnWeekends}
@@ -144,8 +154,8 @@ export default function OrphanageData() {
         <Text style={styles.nextButtonText}>Cadastrar</Text>
       </RectButton>
     </ScrollView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -159,7 +169,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     paddingBottom: 24,
     borderBottomWidth: 0.8,
-    borderBottomColor: '#D3E2E6'
+    borderBottomColor: '#D3E2E6',
   },
 
   label: {
@@ -229,5 +239,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito_800ExtraBold',
     fontSize: 16,
     color: '#FFF',
-  }
-})
+  },
+});
+
+export default OrphanageData;
