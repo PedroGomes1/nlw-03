@@ -37,6 +37,7 @@
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "camelcase": "off",
+    "react/display-name": "off",
     "no-use-before-define": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",

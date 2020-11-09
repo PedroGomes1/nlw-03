@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9fafc',
     borderBottomWidth: 1,
     borderColor: '#dde3f0',
-    paddingTop: 44,
+    paddingTop: 56,
 
     flexDirection: 'row',
     justifyContent: 'space-between',
